@@ -125,167 +125,165 @@ class _HomeState extends State<Home> {
                 // container of cards
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Stack(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.brown.withOpacity(0.2)
-                        ),
-                        child: Column(
-                          children: [
-                            // upcoming
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 10.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('UPCOMING', style: TextStyle(
-                                      color: Colors.brown.withOpacity(0.8),
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 15.0
-                                  ),),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.brown.withOpacity(0.2)
+                    ),
+                    child: Column(
+                      children: [
+                        // upcoming
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text('UPCOMING', style: TextStyle(
+                                  color: Colors.brown.withOpacity(0.8),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 15.0
+                              ),),
 
-                                  DropdownButtonHideUnderline(
-                                    child: Container(
-                                      padding: EdgeInsets.all(5.0),
-                                      child: DropdownButton(
-                                        icon: Icon(Icons.keyboard_arrow_down_sharp, color: Colors.blueGrey,),
-                                        style: TextStyle(color: Colors.teal.withOpacity(0.5), fontSize: 13.0, fontFamily: 'Poppins'),
-                                        items: filter.map((seleceted) {
-                                          return DropdownMenuItem(
-                                            child: Text(seleceted),
-                                            value: seleceted,
-                                          );
-                                        }).toList(),
-                                        onChanged: (newSelection) {
-                                          setState(() {
-                                            _selection = newSelection;
-                                          });
-                                        },
-                                        value: _selection,
-                                        // hint: Text('Filter', style: TextStyle(color: blue),),
-                                      ),
-                                    ),
+                              DropdownButtonHideUnderline(
+                                child: Container(
+                                  padding: EdgeInsets.all(5.0),
+                                  child: DropdownButton(
+                                    icon: Icon(Icons.keyboard_arrow_down_sharp, color: Colors.blueGrey,),
+                                    style: TextStyle(color: Colors.teal.withOpacity(0.5), fontSize: 13.0, fontFamily: 'Poppins'),
+                                    items: filter.map((seleceted) {
+                                      return DropdownMenuItem(
+                                        child: Text(seleceted),
+                                        value: seleceted,
+                                      );
+                                    }).toList(),
+                                    onChanged: (newSelection) {
+                                      setState(() {
+                                        _selection = newSelection;
+                                      });
+                                    },
+                                    value: _selection,
+                                    // hint: Text('Filter', style: TextStyle(color: blue),),
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
+                            ],
+                          ),
+                        ),
 
-                            Divider(color: Colors.white.withOpacity(0.8), thickness: 3.0,),
+                        Divider(color: Colors.white.withOpacity(0.8), thickness: 3.0,),
 
-                            // Cards list
-                            _subjects == null ? Container(child: CupertinoActivityIndicator(radius: 50.0)) :
-                            ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                                shrinkWrap: true,
-                                itemCount: more ? _subjects.length : 2,
-                                itemBuilder: (context, index){
-                                return Card(
-                                  elevation: 5.0,
-                                  margin: EdgeInsets.all(8.0),
-
-                                  color: selectedColour(index),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Column(
+                        // Cards list
+                        _subjects == null ? Container(child: CupertinoActivityIndicator(radius: 50.0)) :
+                        ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: more ? _subjects.length : 2,
+                            itemBuilder: (context, index){
+                            return Card(
+                              elevation: 5.0,
+                              margin: EdgeInsets.all(8.0),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              color: selectedColour(index),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: [
+                                    // subject name
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
-                                        // subject name
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Text('${_subjects[index].subject}', style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 18.0,
-                                                  fontFamily: 'Poppins',
-                                                  fontWeight: FontWeight.w500
-                                                ),),
+                                            Text('${_subjects[index].subject}', style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 18.0,
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.w500
+                                            ),),
 
-                                                _subjects[index].organizer ? Padding(
-                                                  padding: const EdgeInsets.only(left: 5.0),
-                                                  child: Container(
-                                                    padding: EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.0),
-                                                    decoration: BoxDecoration(
-                                                      color: organizerColour(index),
-                                                      borderRadius: BorderRadius.circular(5.0),
-                                                    ),
-                                                    child: Center(
-                                                      child: Text('Organizer', style: TextStyle(
-                                                        color: textColour(index),
-                                                        fontFamily: 'Poppins',
-                                                        fontSize: 10.0
-                                                      ),),
-                                                    ),
-                                                  ),
-                                                ) : Container(),
-                                              ],
-                                            ),
-
-                                            CircleAvatar(
-                                              radius: 20.0,
-                                              backgroundColor: Colors.white,
-                                              child: CircleAvatar(
-                                                radius: 18.0,
-                                                backgroundImage: NetworkImage(_subjects[index].urlAvatar),
+                                            _subjects[index].organizer ? Padding(
+                                              padding: const EdgeInsets.only(left: 5.0),
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(horizontal: 2.0, vertical: 2.0),
+                                                decoration: BoxDecoration(
+                                                  color: organizerColour(index),
+                                                  borderRadius: BorderRadius.circular(5.0),
+                                                ),
+                                                child: Center(
+                                                  child: Text('Organizer', style: TextStyle(
+                                                    color: textColour(index),
+                                                    fontFamily: 'Poppins',
+                                                    fontSize: 10.0
+                                                  ),),
+                                                ),
                                               ),
-                                            ),
+                                            ) : Container(),
                                           ],
                                         ),
 
-                                        // class name
-                                        SizedBox(height: 10.0),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(_subjects[index].classname, style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 14.0,
-                                              fontFamily: 'Poppins',
-                                              fontWeight: FontWeight.w400
-                                            ),),
-                                            
-                                            Text(
-                                              '${DateFormat('Hm').format(DateTime.now())} - ${DateFormat('jm').format(DateTime.now())}',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontFamily: 'Poppins',
-                                                fontSize: 12.0
-                                              ),
-                                            )
-                                          ],
-                                        )
+                                        CircleAvatar(
+                                          radius: 20.0,
+                                          backgroundColor: Colors.white,
+                                          child: CircleAvatar(
+                                            radius: 18.0,
+                                            backgroundImage: NetworkImage(_subjects[index].urlAvatar),
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                  ),
-                                );
-                                  // return Container(
-                                  //     height: 50,
-                                  //     color: Colors.grey[(index*200) % 400],
-                                  //     child: Center(
-                                  //         child: Text(
-                                  //             '${_subjects[index].classname} ${_subjects[index].subject}'
-                                  //         )
-                                  //     )
-                                  // );
-                                }
-                            ),
 
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: IconButton(icon: more ? Icon(Icons.keyboard_arrow_up) : Icon(Icons.keyboard_arrow_down), onPressed: () {
-                                setState(() {
-                                  more = !more;
-                                });
-                              }),
-                            )
-                          ],
+                                    // class name
+                                    SizedBox(height: 10.0),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(_subjects[index].classname, style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 14.0,
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w400
+                                        ),),
+
+                                        Text(
+                                          '${DateFormat('Hm').format(DateTime.now())} - ${DateFormat('jm').format(DateTime.now())}',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontFamily: 'Poppins',
+                                            fontSize: 12.0
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                              // return Container(
+                              //     height: 50,
+                              //     color: Colors.grey[(index*200) % 400],
+                              //     child: Center(
+                              //         child: Text(
+                              //             '${_subjects[index].classname} ${_subjects[index].subject}'
+                              //         )
+                              //     )
+                              // );
+                            }
                         ),
-                      ),
-                    ],
+
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: IconButton(icon: more ? Icon(Icons.keyboard_arrow_up) : Icon(Icons.keyboard_arrow_down), onPressed: () {
+                            setState(() {
+                              more = !more;
+                            });
+                          }),
+                        )
+                      ],
+                    ),
                   )
                 ),
 
