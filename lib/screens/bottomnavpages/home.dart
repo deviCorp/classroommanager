@@ -4,6 +4,7 @@ import 'package:classroommanager/models/subject.dart';
 import 'package:classroommanager/screens/dashboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_indicator/loading_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -174,7 +175,16 @@ class _HomeState extends State<Home> {
                         Divider(color: Colors.white.withOpacity(0.8), thickness: 3.0,),
 
                         // Cards list
-                        _subjects == null ? Container(child: CupertinoActivityIndicator(radius: 50.0)) :
+                        _subjects == null ? Center(
+                          child: SizedBox(
+                              height: 80,
+                              width: 80,
+                              child: LoadingIndicator(
+                                indicatorType: Indicator.ballClipRotateMultiple,
+                                color: Colors.teal,
+                              )
+                          ),
+                        ) :
                         ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
